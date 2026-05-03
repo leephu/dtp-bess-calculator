@@ -31,11 +31,11 @@ button[data-testid="stNumberInputStepDown"], button[data-testid="stNumberInputSt
 # ==========================================
 # 1. การตั้งค่าตัวแปรพื้นฐาน
 # ==========================================
-TOTAL_BESS_CAPACITY = 93.5    # Capacity รวมทั้งหมดของแพลนต์ (9*10.03 + 3.298)
-EFFICIENCY = 0.95             # Efficiency factor 
+TOTAL_BESS_CAPACITY = 93.568    # Capacity รวมทั้งหมดของแพลนต์ (9*10.03 + 3.298)
+EFFICIENCY = 0.98             # Efficiency factor 
 T2_HOURS = 2.0                
 
-st.title("🔋 DTP Firm Period T2: MW Set Point Calculation")
+st.title("🔋 DTP Partial Firm PPA (T2) : MW Set Point Calculation By Phu")
 st.markdown("Web App สำหรับคำนวณการตั้งค่าจ่ายแบตเตอรี่ (MW Set point) ในช่วง Partial Firm PPA (T2)")
 
 # ==========================================
@@ -74,7 +74,7 @@ with col1:
     total_bess_dischargeable = st.number_input(
         "Total BESS Dischargeable (MWh) - ค่าจาก SUNGROW", 
         min_value=0.0, max_value=float(TOTAL_BESS_CAPACITY), 
-        value=min(90.00, float(TOTAL_BESS_CAPACITY)), step=0.1
+        value=min(87.00, float(TOTAL_BESS_CAPACITY)), step=0.1
     )
 with col2:
     target_soc_percent = st.number_input(
@@ -82,8 +82,8 @@ with col2:
         min_value=0.0, max_value=100.0, value=8.0, step=1.0
     )
 with col3:
-    is_holiday = st.checkbox("วันหยุดนักขัตฤกษ์ / Holiday ?")
-    house_load_mwh = 0.0 if is_holiday else 1.0
+    is_holiday = st.checkbox("Supply House Load Via SST02?", value=True)
+    house_load_mwh = 1.0 if is_holiday else 0.0
     st.caption(f"*Current House Load = {house_load_mwh} MWh")
 
 # ==========================================
